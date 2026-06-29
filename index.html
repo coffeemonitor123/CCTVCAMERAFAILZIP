@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <title>Coffee Monitor PRO V43 ULTRA</title>
+  
+<link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- TensorFlow.js -->
+ 
+
+
+
+
+
+<!-- TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+
+<!-- WebGL Backend -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+
+<!-- COCO SSD -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+<!-- Pose Detection -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+<script>
+  
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then((registration) => {
+        console.log("Service Worker registered:", registration.scope);
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
+
+
+
+
+
+
+</script>
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+<button id="installBtn" hidden>📲 Install App</button>
+
+<div class="dashboard">
+
+<header class="header">
+
+<h1>Coffee Monitor PRO</h1>
+
+<p>V43 ULTRA Edition</p>
+
+</header>
+
+<!-- ====================== -->
+<!-- STATISTICS -->
+<!-- ====================== -->
+
+<section class="stats">
+
+<div class="card">
+<h2 id="totalCount">0</h2>
+<span>Total</span>
+</div>
+
+<div class="card">
+<h2 id="standingCount">0</h2>
+<span>Standing</span>
+</div>
+
+<div class="card">
+<h2 id="sittingCount">0</h2>
+<span>Sitting</span>
+</div>
+
+</section>
+
+<!-- ====================== -->
+<!-- BUTTONS -->
+<!-- ====================== -->
+
+<section class="buttons">
+
+<input
+id="uploadInput"
+type="file"
+accept="video/*"
+hidden>
+
+<button id="btnUpload">
+📂 Upload Video
+</button>
+
+<button id="btnLive">
+📷 Live Camera
+</button>
+
+<button id="btnSwitchCam">
+🔄 Switch Camera
+</button>
+
+<button id="btnNight">
+🌙 Night Vision
+</button>
+
+<button id="btnRecord">
+⏺ Recording
+</button>
+
+<button id="btnScreenshot">
+📸 Screenshot
+</button>
+
+<button id="btnStart">
+▶ Start AI
+</button>
+
+<button id="btnStop">
+⏹ Stop AI
+</button>
+
+</section>
+
+<!-- ====================== -->
+<!-- VIDEO -->
+<!-- ====================== -->
+
+<section class="cameraBox">
+
+<div class="feed-stage">
+
+<video
+id="video"
+autoplay
+playsinline
+muted>
+</video>
+
+<canvas
+id="overlayCanvas">
+</canvas>
+
+</div>
+
+</section>
+
+<!-- ====================== -->
+<!-- STATUS -->
+<!-- ====================== -->
+
+<section class="status cardBlue">
+
+<h2>Status</h2>
+
+<p id="statusText">
+
+Waiting...
+
+</p>
+
+</section>
+
+<!-- ====================== -->
+<!-- ALERT -->
+<!-- ====================== -->
+
+<section class="alert cardBlue">
+
+<h2>AI Alert</h2>
+
+<p id="alertText">
+
+No Person
+
+</p>
+
+</section>
+
+<!-- ====================== -->
+<!-- LIVE PERSONS -->
+<!-- ====================== -->
+
+<section class="persons cardBlue">
+
+<h2>
+
+Live Persons
+
+</h2>
+
+<div id="livePersonsWrap">
+
+</div>
+
+</section>
+
+<!-- ====================== -->
+<!-- LOG -->
+<!-- ====================== -->
+
+<section class="logs cardBlue">
+
+<h2>
+
+Detection Log
+
+</h2>
+
+<div id="logBox">
+
+Waiting...
+
+</div>
+
+</section>
+
+<!-- ====================== -->
+<!-- FOOTER -->
+<!-- ====================== -->
+
+
+
+<footer>
+    Coffee Monitor PRO V43 ULTRA Edition
+</footer>
+
+</div>
+<div class="card performance-card">
+
+<h2>⚡ AI Performance</h2>
+
+<div class="perf-item">
+FPS
+<span id="fpsValue">0</span>
+</div>
+
+<div class="perf-item">
+Speed
+<span id="speedValue">0 ms</span>
+</div>
+
+<div class="perf-item">
+AI Load
+<span id="loadValue">0%</span>
+</div>
+
+<div class="perf-item">
+Confidence
+<span id="confValue">0%</span>
+</div>
+
+<div class="perf-item">
+Frames
+<span id="frameValue">0</span>
+</div>
+
+<div class="perf-bar">
+<div id="perfFill"></div>
+</div>
+
+</div>
+<div class="card system-card">
+
+<h2>💻 System Info</h2>
+
+<div class="perf-item">
+Browser
+<span id="browserName">Unknown</span>
+</div>
+
+<div class="perf-item">
+Platform
+<span id="platformName">Unknown</span>
+</div>
+
+<div class="perf-item">
+CPU Cores
+<span id="cpuCores">0</span>
+</div>
+
+<div class="perf-item">
+Device RAM
+<span id="deviceRam">0 GB</span>
+</div>
+
+<div class="perf-item">
+Screen
+<span id="screenSize">0 x 0</span>
+</div>
+
+</div>
+<div class="card ai-card">
+
+<h2>🤖 AI Statistics</h2>
+
+<div class="perf-item">
+Total Detections
+<span id="totalDetections">0</span>
+</div>
+
+<div class="perf-item">
+Current Persons
+<span id="currentPersons">0</span>
+</div>
+
+<div class="perf-item">
+Max Persons
+<span id="maxPersons">0</span>
+</div>
+
+<div class="perf-item">
+Detection Accuracy
+<span id="aiAccuracy">0%</span>
+</div>
+
+<div class="perf-item">
+AI Status
+<span id="aiStatus">Idle</span>
+</div>
+
+</div>
+<div class="card camera-card">
+
+<h2>📷 Camera Information</h2>
+
+<div class="perf-item">
+Resolution
+<span id="cameraResolution">0 × 0</span>
+</div>
+
+<div class="perf-item">
+FPS
+<span id="cameraFPS">0</span>
+</div>
+
+<div class="perf-item">
+Camera Status
+<span id="cameraStatus">Stopped</span>
+</div>
+
+<div class="perf-item">
+Detection Model
+<span id="modelName">YOLO</span>
+</div>
+
+</div>
+<div class="card clock-card">
+
+<h2>🕒 Live Date & Time</h2>
+
+<div class="perf-item">
+Current Time
+<span id="liveTime">00:00:00</span>
+</div>
+
+<div class="perf-item">
+Current Date
+<span id="liveDate">01-01-2026</span>
+</div>
+
+<div class="perf-item">
+Day
+<span id="liveDay">Monday</span>
+</div>
+
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+/* =========================
+   Coffee Monitor PRO V31
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+background:#2f004d;
+color:#fff;
+
+}
+
+.dashboard{
+
+width:100%;
+max-width:900px;
+margin:auto;
+padding:15px;
+
+}
+
+.header{
+
+text-align:center;
+margin-bottom:20px;
+
+}
+
+.header h1{
+
+font-size:42px;
+font-weight:bold;
+
+}
+
+.header p{
+
+font-size:26px;
+color:#00d9ff;
+
+}
+
+/* ---------- Stats ---------- */
+
+.stats{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:20px;
+
+}
+
+.card{
+
+background:#0d49ff;
+border-radius:25px;
+padding:25px;
+text-align:center;
+box-shadow:0 0 18px rgba(0,150,255,.35);
+
+}
+
+.card h2{
+
+font-size:55px;
+
+}
+
+.card span{
+
+font-size:23px;
+
+}
+
+/* ---------- Buttons ---------- */
+
+.buttons{
+
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:20px;
+
+}
+
+.buttons button{
+
+height:75px;
+border:none;
+border-radius:22px;
+font-size:22px;
+font-weight:bold;
+color:white;
+cursor:pointer;
+transition:.25s;
+
+}
+
+.buttons button:hover{
+
+transform:scale(.98);
+
+}
+
+#btnUpload{
+
+background:#0099ff;
+
+}
+
+#btnLive{
+
+background:#00ff33;
+color:black;
+
+}
+
+#btnSwitchCam{
+
+background:#8d4cff;
+
+}
+
+#btnNight{
+
+background:#00c8ff;
+
+}
+
+#btnRecord{
+
+background:#ff0062;
+
+}
+
+#btnStart{
+
+background:#00ff55;
+color:black;
+
+}
+
+#btnStop{
+
+background:#ff2222;
+
+}
+
+/* ---------- Camera ---------- */
+
+.cameraBox{
+
+margin-bottom:20px;
+
+}
+
+.feed-stage{
+
+position:relative;
+width:100%;
+border-radius:25px;
+overflow:hidden;
+background:black;
+
+}
+
+#video{
+
+width:100%;
+display:block;
+
+}
+
+#overlayCanvas{
+
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+pointer-events:none;
+
+}
+
+/* ---------- Cards ---------- */
+
+.cardBlue{
+
+background:#1552ff;
+padding:20px;
+border-radius:25px;
+margin-bottom:18px;
+box-shadow:0 0 15px rgba(0,120,255,.35);
+
+}
+
+.cardBlue h2{
+
+margin-bottom:10px;
+font-size:32px;
+
+}
+
+.cardBlue p{
+
+font-size:23px;
+
+}
+
+/* ---------- Live Persons ---------- */
+
+#livePersonsWrap{
+
+display:flex;
+flex-direction:column;
+gap:15px;
+
+}
+
+.personCard{
+
+background:#1848df;
+padding:18px;
+border-radius:20px;
+
+}
+
+.personCard h3{
+
+font-size:28px;
+
+}
+
+.personCard p{
+
+font-size:20px;
+margin-top:5px;
+
+}
+
+.badge{
+
+display:inline-block;
+margin-top:10px;
+padding:8px 18px;
+border-radius:30px;
+font-weight:bold;
+font-size:18px;
+
+}
+
+.standing{
+
+background:#00ff55;
+color:#000;
+
+}
+
+.sitting{
+
+background:#ff33aa;
+color:white;
+
+}
+
+/* ---------- Detection Log ---------- */
+
+#logBox{
+
+max-height:220px;
+overflow:auto;
+font-size:18px;
+line-height:1.7;
+
+}
+
+/* ---------- Footer ---------- */
+
+footer{
+
+margin-top:30px;
+text-align:center;
+font-size:18px;
+color:#b5d7ff;
+padding-bottom:25px;
+
+}
+
+/* ---------- Mobile ---------- */
+
+@media(max-width:650px){
+
+.header h1{
+
+font-size:34px;
+
+}
+
+.header p{
+
+font-size:22px;
+
+}
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.buttons{
+
+grid-template-columns:1fr;
+
+}
+
+.card h2{
+
+font-size:48px;
+
+}
+
+.cardBlue h2{
+
+font-size:28px;
+
+}
+
+.cardBlue p{
+
+font-size:20px;
+
+}
+
+.buttons button{
+
+font-size:20px;
+height:70px;
+
+}
+
+}#installBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+padding:14px 20px;
+border:none;
+border-radius:12px;
+background:#16a34a;
+color:#fff;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+z-index:9999;
+}/* ==========================================
+   Coffee Monitor PRO MAX V32
+   PART 8B
+   AI PERFORMANCE PANEL
+========================================== */
+
+.performance-card{
+    margin:20px;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#0d6efd,#1b49ff);
+    color:#fff;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+}
+
+.performance-card h2{
+    margin-bottom:15px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.perf-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:12px 0;
+    padding:12px 15px;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    font-size:18px;
+}
+
+.perf-item span{
+    font-weight:bold;
+    color:#00ff90;
+    font-size:20px;
+}/* ==========================================
+   Coffee Monitor PRO MAX V32
+   PART 8C
+   SYSTEM INFO CARD
+========================================== */
+
+.system-card{
+    margin:20px;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#7b1fa2,#512da8);
+    color:#fff;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+}
+
+.system-card h2{
+    margin-bottom:15px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.system-card .perf-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.18);
+}
+
+.system-card .perf-item:last-child{
+    border-bottom:none;
+}
+
+.system-card span{
+    font-weight:bold;
+    color:#ffffff;
+}/* ===========================
+   Coffee Monitor PRO MAX V32
+   PART 9
+   AI STATISTICS CARD
+=========================== */
+
+.ai-card{
+    margin:20px;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+    color:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.ai-card h2{
+    margin-bottom:15px;
+    font-size:20px;
+}/* ======================================
+   Coffee Monitor PRO MAX V32
+   PART 10
+   CAMERA CARD
+====================================== */
+
+.camera-card{
+    margin:20px;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#ff9800,#ff5722);
+    color:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.camera-card h2{
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+.camera-card .perf-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.18);
+}
+
+.camera-card .perf-item:last-child{
+    border-bottom:none;
+}
+
+.camera-card span{
+    font-weight:bold;
+    color:#ffffff;
+}/* ======================================
+   Coffee Monitor PRO MAX V32
+   PART 11
+   LIVE CLOCK CARD
+====================================== */
+
+.clock-card{
+    margin:20px;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#6a11cb,#2575fc);
+    color:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.clock-card h2{
+    margin-bottom:15px;
+}
